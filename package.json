@@ -1,0 +1,48 @@
+{
+  "name": "lets-point",
+  "version": "1.0.0",
+  "description": "An agile pointing web app",
+  "main": "src/index.html",
+  "author": "Adam Knox <adam.w.knox@gmail.com>",
+  "license": "UNLICENSED",
+  "private": true,
+  "scripts": {
+    "dev": "next \"src/\"",
+    "test": "NODE_ENV=test jest",
+    "clean": "rm -rf ./build/* && rm -rf ./dist/*",
+    "updateEnv": "./scripts/updateEnv.js",
+    "build": "yarn run updateEnv && next build \"src/\"",
+    "export": "next export \"src/\" -o \"dist/\"",
+    "serve": "yarn clean && yarn build && yarn export && firebase serve --only hosting",
+    "deploy": "yarn clean && yarn build && yarn export"
+  },
+  "devDependencies": {
+    "@types/classnames": "^2.2.6",
+    "@types/jest": "^23.3.10",
+    "@types/next": "^7.0.1",
+    "@types/react": "^16.8.6",
+    "@types/react-dom": "^16.8.2",
+    "@types/showdown": "^1.9.2",
+    "@zeit/next-css": "^1.0.1",
+    "@zeit/next-typescript": "^1.1.1",
+    "autoprefixer": "^9.4.9",
+    "babel-core": "7.0.0-bridge.0",
+    "babel-jest": "^23.6.0",
+    "babel-plugin-inline-react-svg": "^1.0.1",
+    "firebase-tools": "^6.4.0",
+    "jest": "^23.6.0",
+    "prettier": "^1.14.3",
+    "typescript": "^3.3.3333"
+  },
+  "dependencies": {
+    "classnames": "^2.2.6",
+    "firebase": "^5.8.4",
+    "next": "^8.0.3",
+    "postcss-easy-import": "^3.0.0",
+    "querystring": "^0.2.0",
+    "react": "^16.8.3",
+    "react-dom": "^16.8.3",
+    "showdown": "^1.9.0",
+    "tailwindcss": "^0.6.5"
+  }
+}

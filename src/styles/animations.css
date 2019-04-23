@@ -1,0 +1,28 @@
+.animate-fade {
+  transition: opacity 250ms, transform 250ms;
+}
+.animate-fade--hidden {
+  opacity: 0;
+  -webkit-transform: translate3d(0, 80%, 0);
+  transform: translate3d(0, 80%, 0);
+}
+.animate-fade--visible {
+  opacity: 1;
+  -webkit-transform: translate3d(0, 0, 0);
+  transform: translate3d(0, 0, 0);
+}
+
+.animate-spin {
+  animation-name: spin;
+  animation-duration: 1.2s;
+  animation-iteration-count: infinite;
+  transform-origin: 50% 50%;
+}
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}

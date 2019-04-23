@@ -1,0 +1,20 @@
+@import 'tailwindcss/preflight';
+@import './core-reset.css';
+@import './cms.css';
+
+/* Components */
+@import 'tailwindcss/components';
+@import './buttons.css';
+@import './animations.css';
+
+/* Utilities */
+@import 'tailwindcss/utilities';
+
+.placeholder\:text-grey-8::placeholder {
+  @apply text-grey-8 opacity-100;
+}
+
+.bg-circles {
+  background-image: url('/static/bg-circles.svg');
+  background-repeat: repeat;
+}

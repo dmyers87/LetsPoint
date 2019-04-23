@@ -1,0 +1,40 @@
+.btn {
+  @apply flex items-center px-6 h-10 rounded-full font-extrabold no-underline;
+}
+.btn--sm {
+  @apply px-4 h-8 text-sm;
+}
+
+.btn-fab {
+  @apply p-3 leading-clear rounded-full;
+}
+
+/* Violet buttons */
+.btn--violet {
+  @apply bg-violet-2 text-violet-5;
+  transition: background-color 250ms, color 250ms;
+}
+.btn--violet:hover,
+.btn--violet-active {
+  @apply bg-violet-3 text-violet-6 shadow;
+}
+
+.btn--violet[disabled],
+.btn--violet-disabled,
+.btn--violet[disabled]:hover,
+.btn--violet-disabled:hover {
+  @apply shadow-none;
+  @apply cursor-not-allowed bg-grey-1 text-grey-4;
+}
+
+/* Grey buttons */
+.btn--grey {
+  @apply text-grey-6;
+}
+.btn--grey:hover,
+.btn--grey-active {
+  @apply text-grey-9 bg-grey-2;
+}
+.btn--grey[disabled],
+.btn--grey-disabled {
+}

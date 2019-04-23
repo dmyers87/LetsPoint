@@ -1,0 +1,57 @@
+service cloud.firestore {
+  match /databases/{database}/documents {
+    match /{document=**} {
+      allow read, write: if false;
+    }
+
+    function isRegistered() {
+      return request.auth.uid != null;
+    }
+
+    match /meetings/{mid} {
+      function isParticipant(meeting) {
+        return meeting.participantIDs[request.auth.uid] == true;
+      }
+
+      // A user may only list meetings they belong to
+      // or delete meetings they belong to
+      allow list: if (isRegistered() && isParticipant(resource.data));
+
+      // Any user may:
+      // 1. get a meeting if they have the mid
+      // 2. create a meeting
+      // 3. add themselves to a meeting if they have the mid
+      allow get, create, update: if (isRegistered());
+
+      match /tickets/{tid} {
+        // This could be tightened up to only allow read/writes if you are a participant
+        allow read, write: if (isRegistered());
+      }
+    }
+
+    // Only allow top level listing for now
+    match /archivedMeetings/{mid} {
+      function isParticipant(meeting) {
+        return meeting.participantIDs[request.auth.uid] == true;
+      }
+
+      allow list: if (isRegistered() && isParticipant(resource.data));
+    }
+
+    match /profiles/{uid} {
+      function isResourceOwner() {
+        return uid == request.auth.uid
+      }
+
+      // This node is read/write but we could move toward read only
+      // and let cloud fns be the only writer here
+      allow read, write: if (isRegistered() && isResourceOwner());
+
+      // Owner can write to this, but only fn can read
+      match /secure/{cid} {
+        allow write: if (isRegistered() && isResourceOwner());
+        allow read: if false;
+      }
+    }
+  }
+}

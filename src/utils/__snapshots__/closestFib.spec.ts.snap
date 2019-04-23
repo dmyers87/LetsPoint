@@ -1,0 +1,3 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`@closestFib Errors out when things get out of control 1`] = `"You are spinning on calculating nextFib: votes: [100000000000000000000]"`;

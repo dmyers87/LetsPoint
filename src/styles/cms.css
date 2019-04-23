@@ -1,0 +1,22 @@
+.cms p {
+  @apply mb-4 leading-normal;
+}
+
+.cms ul {
+  @apply mb-4 leading-normal;
+}
+.cms ul > li {
+  @apply mb-2;
+}
+
+.cms h1,
+.cms h2,
+.cms h3 {
+  @apply leading-tight;
+}
+.cms h1 {
+  @apply text-xl mb-6;
+}
+.cms h2 {
+  @apply text-lg mb-3 mt-6;
+}
