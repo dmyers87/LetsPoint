@@ -7,4 +7,4 @@ fbcli.setup.web().then(config => {
   console.log(`Env set to: ${config.projectId}`);
   const envFile = path.join(__dirname, '../src/services/env.ts');
   fs.writeFileSync(envFile, `export default ${JSON.stringify(config, '', '  ')};`);
-});
+}).catch(e => console.error(`Error setting environment vars. Check src/services/env.ts: ${e.message}`));
