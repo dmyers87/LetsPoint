@@ -3,3 +3,5 @@ dist
 build
 .firebaserc
 src/services/env.ts
+functions/lib
+.firebase/
