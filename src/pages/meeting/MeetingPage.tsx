@@ -1,22 +1,22 @@
 import React, { useState, useContext, useEffect, useRef, useCallback } from 'react';
 import update from 'immutability-helper'
 import Link from 'next/link';
-import cx from 'classnames';
 
 import fservice from 'services/fservice';
 import AuthConsumer from 'containers/Auth';
 import useMeeting from 'hooks/useMeeting';
 import useTickets from 'hooks/useTickets';
 import { getVotersFromMeeting } from 'services/utils';
-import { ArrowLeft, Edit, Save } from 'svgs';
 
+import { ArrowLeft } from 'svgs';
 import Layout from 'components/Layout';
 import MeetingIntroAlert from './MeetingIntroAlert';
+import EditMeetingForm from './EditMeetingForm';
 import Ticket from './Ticket';
 import TicketWrapper from './TicketWrapper';
-import EditObserverList from './EditObserverList';
 import NewTicketSection from './NewTicketSection';
-import ProgressBar from 'components/ProgressBar';
+
+import MeetingHeader from './MeetingHeader';
 
 type MyProps = {
   mid: string;
@@ -25,51 +25,17 @@ function MeetingPage({ mid }: MyProps) {
   // Data
   const userState = useContext(AuthConsumer);
   const uid = userState.user.uid;
-  const { meeting, updateMeeting } = useMeeting(mid);
+  const { meeting } = useMeeting(mid);
   const [tickets, setTickets, isFetchingTickets] = useTickets(mid);
 
   // UI state
   const [isEditingMeeting, setEditingMeeting] = useState(false);
 
-  // Edit Form
-  const formTitleRef = useRef<HTMLInputElement | null>(null);
-  const [formTitle, updateFormTitle] = useState(meeting.title);
-
-  useEffect(() => updateFormTitle(meeting.title), [meeting]);
-
-  // Focus on entering edit mode
-  useEffect(() => {
-    if (isEditingMeeting && formTitleRef.current) {
-      formTitleRef.current.focus();
-    }
-  }, [isEditingMeeting]);
-
-  // Validate, update meeting and exit edit mode
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    if (formTitle.trim() === '') {
-      // add error
-      return;
-    }
-
-    if (formTitle.trim() !== meeting.title) {
-      // Optimistically update our state to avoid a flash
-      updateMeeting(s => ({ ...s, title: formTitle }));
-      fservice.updateMeeting({ title: formTitle, id: meeting.id });
-    }
-    setEditingMeeting(false);
-  };
-
-  // Reset form fields, and exit edit mode
-  const handleReset = () => {
-    setEditingMeeting(false);
-    updateFormTitle(meeting.title);
-  };
-
   const percTicketsCompleted = tickets.length
     ? Math.round((tickets.filter(t => t.isRevealed).length / tickets.length) * 100)
     : 0;
 
+  // Callback for DnD of tickets
   const moveTicket = useCallback(
     (dragIndex: number, hoverIndex: number) => {
       const dragTicket = tickets[dragIndex]
@@ -93,61 +59,14 @@ function MeetingPage({ mid }: MyProps) {
         </Link>
       </nav>
 
-      {!isEditingMeeting && (
-        <div className="mb-6">
-          <div className="flex items-start mb-6">
-            <h1 className="flex-1 py-2 text-xl leading-tight border-b border-transparent">
-              {meeting.title}
-            </h1>
-            <button
-              title="Edit meeting details"
-              type="button"
-              className="ml-3 btn-fab btn--grey"
-              onClick={() => setEditingMeeting(v => !v)}
-            >
-              <Edit className="w-4 h-4" />
-            </button>
-          </div>
-
-          <ProgressBar percent={percTicketsCompleted}>
-            Tickets Pointed {percTicketsCompleted}%
-          </ProgressBar>
-        </div>
-      )}
-
-      {isEditingMeeting && (
-        <>
-          <form className="flex items-start mb-6" onSubmit={handleSubmit} autoComplete="off">
-            <input
-              ref={formTitleRef}
-              className={cx(
-                'flex-1 font-header text-xl leading-tight',
-                'py-2 block w-full placeholder:text-grey-8',
-                'border-b border-gray-3',
-                'outline-none focus:border-teal-7'
-              )}
-              placeholder="Meeting title"
-              value={formTitle}
-              onChange={e => updateFormTitle(e.target.value)}
-              required
-              onKeyDown={e => e.key === 'Escape' && handleReset()}
-            />
-            <button type="submit" className="ml-3 btn btn--violet">
-              <Save className="w-4 h-4 mr-3" />
-              Save
-            </button>
-          </form>
-          <section className="mb-6">
-            <h1 className="text-lg mb-2">Move users between roles</h1>
-            <EditObserverList
-              meeting={meeting}
-              addUserToObserverList={anyUID => fservice.addUserToObserverList(mid, anyUID)}
-              removeUserFromObserverList={anyUID =>
-                fservice.removeUserFromObserverList(mid, anyUID)
-              }
-            />
-          </section>
-        </>
+      {!isEditingMeeting ? (
+        <MeetingHeader
+          title={meeting.title}
+          percentComplete={percTicketsCompleted}
+          onEditClick={setEditingMeeting}
+        />
+      ) : (
+        <EditMeetingForm mid={mid} setEditStatus={setEditingMeeting} />
       )}
 
       {!isFetchingTickets && (
