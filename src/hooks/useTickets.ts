@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import fservice from 'services/fservice';
 import { TicketShape } from 'schema';
 
-export default function useTickets(mid: string): [TicketShape[], boolean] {
+export default function useTickets(mid: string): [TicketShape[], Function, boolean] {
   const [isFetching, setIsFetching] = useState(true);
   const [tickets, setTickets] = useState<TicketShape[]>([]);
   useEffect(
@@ -14,5 +14,5 @@ export default function useTickets(mid: string): [TicketShape[], boolean] {
     [mid]
   );
 
-  return [tickets, isFetching];
+  return [tickets, setTickets, isFetching];
 }

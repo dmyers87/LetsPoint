@@ -37,10 +37,13 @@
   "dependencies": {
     "classnames": "^2.2.6",
     "firebase": "^5.8.4",
+    "immutability-helper": "^3.0.1",
     "next": "^8.0.3",
     "postcss-easy-import": "^3.0.0",
     "querystring": "^0.2.0",
     "react": "^16.8.3",
+    "react-dnd-cjs": "^9.4.0",
+    "react-dnd-html5-backend-cjs": "^9.4.0",
     "react-dom": "^16.8.3",
     "showdown": "^1.9.0",
     "tailwindcss": "^0.6.5"

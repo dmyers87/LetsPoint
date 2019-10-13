@@ -1,5 +1,8 @@
-import React, { useState, useContext, useEffect, useRef } from 'react';
+import React, { useState, useContext, useEffect, useRef, useCallback } from 'react';
 import Router from 'next/router';
+import { DndProvider } from 'react-dnd-cjs'
+import HTML5Backend from 'react-dnd-html5-backend-cjs'
+import update from 'immutability-helper'
 import Link from 'next/link';
 import cx from 'classnames';
 
@@ -15,6 +18,7 @@ import { ArrowLeft, Edit, Save } from 'svgs';
 import Layout from 'components/Layout';
 import MeetingIntroAlert from './MeetingIntroAlert';
 import Ticket from './Ticket';
+import TicketWrapper from './TicketWrapper';
 import EditObserverList from './EditObserverList';
 import NewTicketSection from './NewTicketSection';
 import ProgressBar from 'components/ProgressBar';
@@ -35,9 +39,11 @@ export default function MeetingScreen() {
 
   return (
     <Gatekeeper>
-      <ProfileProvider>
-        <MeetingPage mid={query.mid} />
-      </ProfileProvider>
+      <DndProvider backend={HTML5Backend}>
+        <ProfileProvider>
+          <MeetingPage mid={query.mid} />
+        </ProfileProvider>
+      </DndProvider>
     </Gatekeeper>
   );
 }
@@ -50,7 +56,7 @@ function MeetingPage({ mid }: MyProps) {
   const userState = useContext(AuthConsumer);
   const uid = userState.user.uid;
   const { meeting, updateMeeting } = useMeeting(mid);
-  const [tickets, isFetchingTickets] = useTickets(mid);
+  const [tickets, setTickets, isFetchingTickets] = useTickets(mid);
 
   // UI state
   const [isEditingMeeting, setEditingMeeting] = useState(false);
@@ -93,6 +99,18 @@ function MeetingPage({ mid }: MyProps) {
   const percTicketsCompleted = tickets.length
     ? Math.round((tickets.filter(t => t.isRevealed).length / tickets.length) * 100)
     : 0;
+
+  const moveTicket = useCallback(
+    (dragIndex: number, hoverIndex: number) => {
+      const dragTicket = tickets[dragIndex]
+      setTickets(
+        update(tickets, {
+          $splice: [[dragIndex, 1], [hoverIndex, 0, dragTicket]],
+        }),
+      )
+    },
+    [tickets],
+  )
 
   return (
     <Layout>
@@ -168,20 +186,13 @@ function MeetingPage({ mid }: MyProps) {
           {tickets.length > 0 && (
             <ol className="mb-6 list-reset -mx-3 md:-mx-6 lg:-mx-8">
               {tickets.map((t, i) => (
-                <li
+                <TicketWrapper
                   key={t.id}
-                  className={cx({
-                    'relative py-3': true,
-                    'px-3 md:px-6 lg:px-8': true, // match layout
-                    'border-b': true,
-                    'border-t': !i,
-                    'bg-violet-0': t.id === meeting.focus,
-                  })}
+                  index={i}
+                  tid={t.id}
+                  focus={meeting.focus}
+                  moveTicket={moveTicket}
                 >
-                  {/* Focus Bar */}
-                  {meeting.focus === t.id && (
-                    <div className="w-1 bg-violet-5 absolute pin-t pin-l pin-b" />
-                  )}
                   <Ticket
                     mid={mid}
                     ticket={t}
@@ -195,7 +206,7 @@ function MeetingPage({ mid }: MyProps) {
                     currentVote={t.votes[uid]}
                     voterList={getVotersFromMeeting(meeting)}
                   />
-                </li>
+                </TicketWrapper>
               ))}
             </ol>
           )}
