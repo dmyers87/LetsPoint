@@ -30,6 +30,7 @@ function MeetingPage({ mid }: MyProps) {
 
   // UI state
   const [isEditingMeeting, setEditingMeeting] = useState(false);
+  const [isReordering, setIsReordering] = useState(false);
 
   const percTicketsCompleted = tickets.length
     ? Math.round((tickets.filter(t => t.isRevealed).length / tickets.length) * 100)
@@ -64,6 +65,7 @@ function MeetingPage({ mid }: MyProps) {
           title={meeting.title}
           percentComplete={percTicketsCompleted}
           onEditClick={setEditingMeeting}
+          onReorderClick={setIsReordering}
         />
       ) : (
         <EditMeetingForm mid={mid} setEditStatus={setEditingMeeting} />
@@ -80,6 +82,7 @@ function MeetingPage({ mid }: MyProps) {
                   index={i}
                   tid={t.id}
                   focus={meeting.focus}
+                  canDrag={isReordering}
                   moveTicket={moveTicket}
                 >
                   <Ticket

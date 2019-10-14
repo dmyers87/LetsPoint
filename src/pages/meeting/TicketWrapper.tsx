@@ -1,24 +1,25 @@
-import React, { Component } from 'react';
+import React from 'react';
 import cx from 'classnames';
 import { useDrag, useDrop, DropTargetMonitor } from 'react-dnd-cjs'
 
-type MyProps = {
-  index: number;
-  tid: string;
-  focus: string | null;
-  children: React.ReactNode;
-  moveTicket: (dragIndex: number, hoverIndex: number) => void;
-};
 interface DragItem {
   index: number;
   id: string;
   type: string;
 }
-
+type MyProps = {
+  index: number;
+  tid: string;
+  focus: string | null;
+  canDrag: boolean;
+  children: React.ReactNode;
+  moveTicket: (dragIndex: number, hoverIndex: number) => void;
+};
 const TicketWrapper: React.FunctionComponent<MyProps> = ({
   index,
   tid,
   focus,
+  canDrag,
   children,
   moveTicket,
 }) => {
@@ -26,8 +27,10 @@ const TicketWrapper: React.FunctionComponent<MyProps> = ({
 
   const [{ isDragging }, drag] = useDrag({
     item: { type: 'TICKET', tid, index },
+    canDrag: () => canDrag,
     collect: monitor => ({
       isDragging: !!monitor.isDragging(),
+      canDrag: !!monitor.canDrag(),
     }),
   });
 
@@ -44,6 +47,7 @@ const TicketWrapper: React.FunctionComponent<MyProps> = ({
         return;
       }
       // Determine rectangle on screen
+      // @ts-ignore
       const hoverBoundingRect = ref.current.getBoundingClientRect();
       // Get vertical middle
       const hoverMiddleY =
@@ -51,7 +55,7 @@ const TicketWrapper: React.FunctionComponent<MyProps> = ({
       // Determine mouse position
       const clientOffset = monitor.getClientOffset();
       // Get pixels to the top
-      const hoverClientY = clientOffset.y - hoverBoundingRect.top;
+      const hoverClientY = clientOffset ? clientOffset.y - hoverBoundingRect.top : 0;
       // Only perform the move when the mouse has crossed half of the items height
       // When dragging downwards, only move when the cursor is below 50%
       // When dragging upwards, only move when the cursor is above 50%
@@ -80,7 +84,7 @@ const TicketWrapper: React.FunctionComponent<MyProps> = ({
     'border-b': true,
     'border-t': !index,
     'bg-violet-0': tid === focus,
-    'cursor-move': true,
+    'cursor-move': canDrag,
   });
 
   drag(drop(ref))

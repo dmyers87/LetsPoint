@@ -6,11 +6,13 @@ type MyProps = {
   title: string;
   percentComplete: number;
   onEditClick: Function;
+  onReorderClick: Function;
 }
 export default function MeetingHeader({
   title,
   percentComplete,
   onEditClick,
+  onReorderClick,
 }: MyProps) {
   return (
     <div className="mb-6">
@@ -22,7 +24,7 @@ export default function MeetingHeader({
           title="Edit meeting details"
           type="button"
           className="ml-3 btn-fab btn--grey"
-          onClick={() => onEditClick(v => !v)}
+          onClick={() => onEditClick((v: boolean) => !v)}
         >
           <Edit className="w-4 h-4" />
         </button>
@@ -31,6 +33,15 @@ export default function MeetingHeader({
       <ProgressBar percent={percentComplete}>
         Tickets Pointed {percentComplete}%
       </ProgressBar>
+      <div className="pt-5 text-right">
+        <button
+          type="button"
+          className="text-violet-5 underline"
+          onClick={() => onReorderClick((v: boolean) => !v)}
+        >
+          Reorder Tickets
+        </button>
+      </div>
     </div>
   );
 }
