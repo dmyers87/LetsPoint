@@ -42,6 +42,7 @@ const Ticket: React.FunctionComponent<MyProps> = ({
             title: t.title,
             link: t.link,
             description: t.description,
+            order: t.order,
             source: t.source,
           }}
           onSubmit={updatedFields =>

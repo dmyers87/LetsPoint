@@ -50,7 +50,7 @@ export function meetingFromSnap(snap: Snap): MeetingShape {
 /**
  * Tickets
  */
-export type TicketNew = Pick<TicketShape, 'title' | 'link' | 'description' | 'source'> &
+export type TicketNew = Pick<TicketShape, 'title' | 'link' | 'description' | 'source' | 'order'> &
   Maybe<TicketShape, 'id'>;
 export type TicketShapeToDB = Omit<TicketShape, 'id'>;
 export type TicketShape = {
@@ -65,6 +65,7 @@ export type TicketShape = {
   isRevealed: boolean;
   source: 'jira' | 'form';
   createdAt: firebase.firestore.Timestamp;
+  order: number;
 };
 
 export function ticketFromSnap(snap: Snap): TicketShape {
@@ -77,6 +78,8 @@ export function ticketFromSnap(snap: Snap): TicketShape {
     votes: {},
     isRevealed: false,
     source: 'form',
+    // @ts-ignore
+    order: data.order,
     ...data,
     // @ts-ignore
     createdAt: data.createdAt || { seconds: 0, nanoseconds: 0 },

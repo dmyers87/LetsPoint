@@ -9,10 +9,11 @@ import { PlusCircle } from 'svgs';
 
 type MyProps = {
   mid: string;
+  newTicketIndex: number;
   className?: string;
 };
 
-const NewTicketSection: React.FC<MyProps> = ({ mid, className }) => {
+const NewTicketSection: React.FC<MyProps> = ({ mid, newTicketIndex, className }) => {
   const [visibleForm, updateVisibleForm] = React.useState<'form' | 'jira-tid'>('form');
 
   return (
@@ -34,6 +35,7 @@ const NewTicketSection: React.FC<MyProps> = ({ mid, className }) => {
               resetForm();
             })
           }
+          newTicketIndex={newTicketIndex}
           formButtons={
             <Button type="submit">
               <PlusCircle className="w-5 h-5 mr-2" />

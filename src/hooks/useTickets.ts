@@ -8,6 +8,10 @@ export default function useTickets(mid: string): [TicketShape[], Function, boole
   useEffect(
     () =>
       fservice.onTicketList(mid, tickets => {
+        if (tickets.every((ticket) => ticket.order !== undefined)) {
+          tickets.sort((a, b) => a.order - b.order);
+        }
+
         setIsFetching(false);
         setTickets(tickets);
       }),

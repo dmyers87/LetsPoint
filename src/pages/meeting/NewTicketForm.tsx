@@ -7,10 +7,17 @@ type MyProps = {
   ticket?: TicketNew;
   onSubmit: (ticket: TicketNew, { resetForm }: { resetForm: any }) => void;
   formButtons: React.ReactNode;
+  newTicketIndex?: number;
 };
 
-const TicketForm: React.FunctionComponent<MyProps> = ({ formButtons, onSubmit, ticket }) => {
-  const emptyState: TicketNew = { title: '', link: '', description: '', source: 'form' };
+const TicketForm: React.FunctionComponent<MyProps> = ({ formButtons, onSubmit, ticket, newTicketIndex }) => {
+  const emptyState: TicketNew = {
+    title: '',
+    link: '',
+    description: '',
+    order: newTicketIndex || 0,
+    source: 'form'
+  };
   const initialState = ticket || emptyState;
   const [newTicket, updateTicket] = React.useState<TicketNew>(initialState);
 

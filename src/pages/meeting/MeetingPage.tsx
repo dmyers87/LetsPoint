@@ -32,6 +32,13 @@ function MeetingPage({ mid }: MyProps) {
   const [isEditingMeeting, setEditingMeeting] = useState(false);
   const [isReordering, setIsReordering] = useState(false);
 
+  // Update ticket order in DB when we're done re-ordering
+  useEffect(() => {
+    if (!isReordering) {
+      fservice.updateTicketOrder(mid, tickets);
+    }
+  }, [isReordering])
+
   const percTicketsCompleted = tickets.length
     ? Math.round((tickets.filter(t => t.isRevealed).length / tickets.length) * 100)
     : 0;
@@ -39,15 +46,18 @@ function MeetingPage({ mid }: MyProps) {
   // Callback for DnD of tickets
   const moveTicket = useCallback(
     (dragIndex: number, hoverIndex: number) => {
-      const dragTicket = tickets[dragIndex]
-      setTickets(
-        update(tickets, {
-          $splice: [[dragIndex, 1], [hoverIndex, 0, dragTicket]],
-        }),
-      )
+      const dragTicket = tickets[dragIndex];
+      let newTickets = update(tickets, {
+        $splice: [[dragIndex, 1], [hoverIndex, 0, dragTicket]],
+      });
+      newTickets = newTickets.map((item, index) => {
+        item.order = index;
+        return item;
+      });
+      setTickets(newTickets);
     },
     [tickets],
-  )
+  );
 
   return (
     <Layout>
@@ -103,7 +113,7 @@ function MeetingPage({ mid }: MyProps) {
             </ol>
           )}
 
-          <NewTicketSection mid={mid} className="mb-6" />
+          <NewTicketSection mid={mid} newTicketIndex={tickets.length} className="mb-6" />
         </>
       )}
     </Layout>

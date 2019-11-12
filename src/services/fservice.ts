@@ -195,6 +195,27 @@ class FirebaseService {
       });
   }
 
+  /**
+   * Batch update the order property of the tickets in the database
+   *
+   * @param mid
+   * @param tickets
+   *
+   * @return {Promise}
+   */
+  updateTicketOrder(mid: string, tickets: TicketShape[]) {
+    const batch = this.db.batch();
+
+    const collection = this.db.collection(`/meetings/${mid}/tickets`);
+
+    tickets.forEach((ticket) => {
+      const ref = collection.doc(ticket.id);
+      batch.update(ref, { order: ticket.order });
+    });
+
+    return batch.commit();
+  }
+
   createTicket(mid: string, ticket: TicketNew) {
     const t: TicketShapeToDB = {
       title: ticket.title,
@@ -202,6 +223,7 @@ class FirebaseService {
       description: ticket.description || '',
       votes: {},
       isRevealed: false,
+      order: ticket.order,
 
       // @ts-ignore
       createdAt: this._getTimestamp(),
