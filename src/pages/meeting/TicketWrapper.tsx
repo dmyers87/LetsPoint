@@ -1,6 +1,6 @@
 import React from 'react';
 import cx from 'classnames';
-import { useDrag, useDrop, DropTargetMonitor } from 'react-dnd-cjs'
+import { useDrag, useDrop, DropTargetMonitor, XYCoord } from 'react-dnd-cjs'
 
 interface DragItem {
   index: number;
@@ -42,37 +42,36 @@ const TicketWrapper: React.FunctionComponent<MyProps> = ({
       }
       const dragIndex = item.index;
       const hoverIndex = index;
-      // Don't replace items with themselves
-      if (dragIndex === hoverIndex) {
-        return;
-      }
+
       // Determine rectangle on screen
       // @ts-ignore
-      const hoverBoundingRect = ref.current.getBoundingClientRect();
+      const hoverBoundingRect = ref.current!.getBoundingClientRect();
       // Get vertical middle
-      const hoverMiddleY =
-        (hoverBoundingRect.bottom - hoverBoundingRect.top) / 2;
+      const hoverMiddleY = hoverBoundingRect.height / 2;
       // Determine mouse position
-      const clientOffset = monitor.getClientOffset();
-      // Get pixels to the top
-      const hoverClientY = clientOffset ? clientOffset.y - hoverBoundingRect.top : 0;
-      // Only perform the move when the mouse has crossed half of the items height
-      // When dragging downwards, only move when the cursor is below 50%
-      // When dragging upwards, only move when the cursor is above 50%
+      const clientOffset = monitor.getDifferenceFromInitialOffset();
+
+      // const hoverClientY = clientOffset ? clientOffset.y - hoverBoundingRect.top : 0;
+      // Only perform the move when the mouse has crossed half of the item's height. When dragging
+      // downwards, only move when the cursor is below 50%. When dragging upwards, only move when
+      // the cursor is above 50%.
+      // `clientOffset` can be `null`
+      if (clientOffset === null) {
+        return;
+      }
       // Dragging downwards
-      if (dragIndex < hoverIndex && hoverClientY < hoverMiddleY) {
+      if (dragIndex < hoverIndex && clientOffset.y < hoverMiddleY) {
         return;
       }
       // Dragging upwards
-      if (dragIndex > hoverIndex && hoverClientY > hoverMiddleY) {
+      if (dragIndex > hoverIndex && clientOffset.y > hoverMiddleY) {
         return;
       }
+
       // Time to actually perform the action
       moveTicket(dragIndex, hoverIndex);
-      // Note: we're mutating the monitor item here!
-      // Generally it's better to avoid mutations,
-      // but it's good here for the sake of performance
-      // to avoid expensive index searches.
+      // Note: we're mutating the monitor item here! Generally it's better to avoid mutations, but
+      // it's good here for the sake of performance to avoid expensive index searches.
       item.index = hoverIndex;
     },
   });
