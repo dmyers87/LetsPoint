@@ -1,10 +1,10 @@
 import React, { useContext } from 'react';
 import Router from 'next/router';
 import Link from 'next/link';
-import fservice from 'services/fservice';
-import AuthContext from 'containers/Auth';
-import { Zap as ZapIcon, PlusCircle as PlusCircleIcon } from 'svgs';
-import { HeaderBar, FooterBar } from 'components/Layout';
+import fservice from '../services/fservice';
+import AuthContext from '../containers/Auth';
+import { Zap as ZapIcon, PlusCircle as PlusCircleIcon } from '../svgs';
+import { HeaderBar, FooterBar } from '../components/Layout';
 
 export default function() {
   const auth = useContext(AuthContext);

@@ -3,22 +3,22 @@ import Router from 'next/router';
 import Link from 'next/link';
 import cx from 'classnames';
 
-import fservice from 'services/fservice';
-import AuthConsumer from 'containers/Auth';
-import Gatekeeper from 'containers/Gatekeeper';
-import useQuerystring from 'hooks/useQuerystring';
-import useMeeting from 'hooks/useMeeting';
-import useTickets from 'hooks/useTickets';
-import { getVotersFromMeeting } from 'services/utils';
-import { ArrowLeft, Edit, Save } from 'svgs';
+import fservice from '../../services/fservice';
+import AuthConsumer from '../../containers/Auth';
+import Gatekeeper from '../../containers/Gatekeeper';
+import useQuerystring from '../../hooks/useQuerystring';
+import useMeeting from '../../hooks/useMeeting';
+import useTickets from '../../hooks/useTickets';
+import { getVotersFromMeeting } from '../../services/utils';
+import { ArrowLeft, Edit, Save } from '../../svgs';
 
-import Layout from 'components/Layout';
+import Layout from '../../components/Layout';
 import MeetingIntroAlert from './MeetingIntroAlert';
-import Ticket from './Ticket';
-import EditObserverList from './EditObserverList';
+import Ticket from '../../components/Ticket';
+import EditObserverList from '../../components/EditObserverList';
 import NewTicketSection from './NewTicketSection';
-import ProgressBar from 'components/ProgressBar';
-import { ProfileProvider } from 'containers/Profile';
+import ProgressBar from '../../components/ProgressBar';
+import { ProfileProvider } from '../../containers/Profile';
 
 export default function MeetingScreen() {
   const query = useQuerystring();

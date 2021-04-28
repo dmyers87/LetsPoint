@@ -1,5 +1,5 @@
-import AvatarImg from 'components/AvatarImg';
-import { UserShape } from 'services/utils';
+import AvatarImg from '../components/AvatarImg';
+import { UserShape } from '../services/utils';
 import cx from 'classnames';
 
 type MyProps = {

@@ -1,5 +1,5 @@
-import fservice from 'services/fservice';
-import { FooterBar, HeaderBar } from 'components/Layout';
+import fservice from '../services/fservice';
+import { FooterBar, HeaderBar } from '../components/Layout';
 import Link from 'next/link';
 
 export default function LoginPage() {

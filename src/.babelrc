@@ -1,17 +1,16 @@
 {
   "env": {
     "development": {
-      "presets": ["next/babel", "@zeit/next-typescript/babel"],
+      "presets": ["next/babel"],
       "plugins": [["inline-react-svg", { "svgo": false }]]
     },
     "production": {
-      "presets": ["next/babel", "@zeit/next-typescript/babel"],
+      "presets": ["next/babel"],
       "plugins": [["inline-react-svg", { "svgo": false }]]
     },
     "test": {
       "presets": [
-        ["next/babel", { "preset-env": { "modules": "commonjs" } }],
-        "@zeit/next-typescript/babel"
+        ["next/babel", { "preset-env": { "modules": "commonjs" } }]
       ]
     }
   }

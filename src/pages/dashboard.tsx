@@ -1,23 +1,23 @@
 import React, { useState, useEffect, useContext } from 'react';
 import Router from 'next/router';
 import cx from 'classnames';
-import fservice from 'services/fservice';
-import { MeetingShape } from 'schema';
+import fservice from '../services/fservice';
+import { MeetingShape } from '../schema';
 
-import Gatekeeper from 'containers/Gatekeeper';
-import Layout from 'components/Layout';
-import Input from 'components/Input';
-import Button from 'components/Buttons';
+import Gatekeeper from '../containers/Gatekeeper';
+import Layout from '../components/Layout';
+import Input from '../components/Input';
+import Button from '../components/Buttons';
 import Link from 'next/link';
-import AuthContext from 'containers/Auth';
-import AvatarImg from 'components/AvatarImg';
-import AvatarList from 'components/AvatarList';
-import MoreDropdown from 'components/MoreDropdown';
+import AuthContext from '../containers/Auth';
+import AvatarImg from '../components/AvatarImg';
+import AvatarList from '../components/AvatarList';
+import MoreDropdown from '../components/MoreDropdown';
 
-import { getParticipantsFromMeeting } from 'services/utils';
+import { getParticipantsFromMeeting } from '../services/utils';
 
-import { Unarchive, Archive, Loader } from 'svgs';
-import ToggleButton from 'components/ToggleButton';
+import { Unarchive, Archive, Loader } from '../svgs';
+import ToggleButton from '../components/ToggleButton';
 
 export default () => (
   <Gatekeeper>

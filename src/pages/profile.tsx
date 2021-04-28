@@ -1,14 +1,14 @@
 import React from 'react';
-import Gatekeeper from 'containers/Gatekeeper';
+import Gatekeeper from '../containers/Gatekeeper';
 import Link from 'next/link';
 import Router from 'next/router';
-import fservice from 'services/fservice';
+import fservice from '../services/fservice';
 
-import { ArrowLeft } from 'svgs';
-import Layout from 'components/Layout';
-import Button from 'components/Buttons';
-import CredentialForm from 'components/CredentialForm';
-import ProfileContext, { ProfileProvider } from 'containers/Profile';
+import { ArrowLeft } from '../svgs';
+import Layout from '../components/Layout';
+import Button from '../components/Buttons';
+import CredentialForm from '../components/CredentialForm';
+import ProfileContext, { ProfileProvider } from '../containers/Profile';
 
 export default () => (
   <Gatekeeper>

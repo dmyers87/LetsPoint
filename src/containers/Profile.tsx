@@ -1,6 +1,6 @@
 import React from 'react';
-import { ProfileShape } from 'schema';
-import fservice from 'services/fservice';
+import { ProfileShape } from '../schema';
+import fservice from '../services/fservice';
 
 const ProfileContext = React.createContext<ProfileShape | null>(null);
 export default ProfileContext;

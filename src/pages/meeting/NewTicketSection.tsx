@@ -1,11 +1,11 @@
 import React from 'react';
 import cx from 'classnames';
 
-import fservice from 'services/fservice';
+import fservice from '../../services/fservice';
 import TicketForm from './NewTicketForm';
 import JiraForm from './JiraForm';
-import Button from 'components/Buttons';
-import { PlusCircle } from 'svgs';
+import Button from '../../components/Buttons';
+import { PlusCircle } from '../../svgs';
 
 type MyProps = {
   mid: string;

@@ -1,5 +1,5 @@
 import React, { useContext, FunctionComponent } from 'react';
-import AuthContext from 'containers/Auth';
+import AuthContext from '../containers/Auth';
 import LoginPage from './LoginPage';
 
 // @ts-ignore

@@ -1,7 +1,7 @@
 import React from 'react';
 import cx from 'classnames';
-import { MoreVertical } from 'svgs';
-import useOnClickOutside from 'hooks/useOnClickOutside';
+import { MoreVertical } from '../svgs';
+import useOnClickOutside from '../hooks/useOnClickOutside';
 
 const MoreDropdown: React.FC<{ className?: string }> = ({ children, className }) => {
   const ref = React.useRef<HTMLDivElement>(null);

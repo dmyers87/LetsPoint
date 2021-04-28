@@ -1,7 +1,7 @@
 import React from 'react';
-import { TicketNew } from 'schema';
+import { TicketNew } from '../../schema';
 
-import Input from 'components/Input';
+import Input from '../../components/Input';
 
 type MyProps = {
   ticket?: TicketNew;
