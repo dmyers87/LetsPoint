@@ -3,7 +3,7 @@ import 'firebase/auth';
 import 'firebase/firestore';
 import 'firebase/functions';
 
-import { byTimestamp } from 'utils/sorting';
+import { byTimestamp } from '../utils/sorting';
 import config from './env';
 
 import {
@@ -18,7 +18,7 @@ import {
   CredentialShape,
   ProfileShape,
   profileFromSnap,
-} from 'schema';
+} from '../schema';
 
 class FirebaseService {
   auth: firebase.auth.Auth;

@@ -1,6 +1,6 @@
 import React from 'react';
 import cx from 'classnames';
-import labelCSS from 'components/labelCSS';
+import labelCSS from './labelCSS';
 
 type RadioSetProps = {
   id: string;

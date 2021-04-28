@@ -1,7 +1,7 @@
 import React from 'react';
-import fservice from 'services/fservice';
+import fservice from '../services/fservice';
 
-import Input from 'components/Input';
+import Input from '../components/Input';
 import Button from './Buttons';
 import ErrorBox from './ErrorBox';
 

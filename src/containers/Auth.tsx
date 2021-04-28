@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import fservice from 'services/fservice';
+import fservice from '../services/fservice';
 
 export type AuthShape = {
   isStatusReported: boolean;

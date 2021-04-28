@@ -1,8 +1,8 @@
 import { useEffect, useState, useContext } from 'react';
 import Router from 'next/router';
-import fservice from 'services/fservice';
-import { MeetingShape, meetingFromSnap } from 'schema';
-import AuthConsumer from 'containers/Auth';
+import fservice from '../services/fservice';
+import { MeetingShape, meetingFromSnap } from '../schema';
+import AuthConsumer from '../containers/Auth';
 
 export default function useMeeting(mid: string) {
   const userState = useContext(AuthConsumer);

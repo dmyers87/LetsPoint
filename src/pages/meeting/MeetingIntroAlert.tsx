@@ -1,4 +1,4 @@
-import { PlusCircle as PlusCircleIcon, Zap as ZapIcon } from 'svgs';
+import { PlusCircle as PlusCircleIcon, Zap as ZapIcon } from '../../svgs';
 
 const MeetingIntroAlert = () => (
   <section className="text-teal-9 bg-teal-2 border-teal-6 border-t border-b py-5 px-4 mb-6">

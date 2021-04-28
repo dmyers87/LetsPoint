@@ -1,18 +1,18 @@
 import React from 'react';
 import cx from 'classnames';
 
-import { TicketShape } from 'schema';
-import closestFib from 'utils/closestFib';
-import AvatarList from 'components/AvatarList';
-import { Trash, Target, PlusCircle, Edit, Loader, Check } from 'svgs';
+import { TicketShape } from '../schema';
+import closestFib from '../utils/closestFib';
+import AvatarList from './AvatarList';
+import { Trash, Target, PlusCircle, Edit, Loader, Check } from '../svgs';
 
 import RadioSet from './RadioSet';
-import MoreDropdown from 'components/MoreDropdown';
-import { UserShape } from 'services/utils';
-import fservice from 'services/fservice';
-import TicketForm from './NewTicketForm';
-import ProfileContext from 'containers/Profile';
-import Button from 'components/Buttons';
+import MoreDropdown from './MoreDropdown';
+import { UserShape } from '../services/utils';
+import fservice from '../services/fservice';
+import TicketForm from '../pages/meeting/NewTicketForm';
+import ProfileContext from '../containers/Profile';
+import Button from './Buttons';
 
 type MyProps = {
   mid: string;

@@ -1,4 +1,4 @@
-import { MeetingShape } from 'schema';
+import { MeetingShape } from '../schema';
 
 export type UserShape = {
   id: string;

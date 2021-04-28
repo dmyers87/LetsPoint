@@ -1,8 +1,8 @@
 import React from 'react';
-import { MeetingShape } from 'schema';
-import { getObserversFromMeeting, getVotersFromMeeting } from 'services/utils';
-import AvatarList from 'components/AvatarList';
-import labelCSS from 'components/labelCSS';
+import { MeetingShape } from '../schema';
+import { getObserversFromMeeting, getVotersFromMeeting } from '../services/utils';
+import AvatarList from './AvatarList';
+import labelCSS from './labelCSS';
 
 type MyProps = {
   meeting: MeetingShape;

@@ -1,12 +1,12 @@
 import React from 'react';
 
-import parseTicketKey from 'utils/parseJiraTicketKey';
-import { PlusCircle, Loader } from 'svgs';
-import Input from 'components/Input';
-import Button from 'components/Buttons';
-import CredentialForm from 'components/CredentialForm';
-import ErrorBox from 'components/ErrorBox';
-import ProfileContext from 'containers/Profile';
+import parseTicketKey from '../../utils/parseJiraTicketKey';
+import { PlusCircle, Loader } from '../../svgs';
+import Input from '../../components/Input';
+import Button from '../../components/Buttons';
+import CredentialForm from '../../components/CredentialForm';
+import ErrorBox from '../../components/ErrorBox';
+import ProfileContext from '../../containers/Profile';
 
 type MyProps = {
   onSubmit: (ticketID: string) => any;

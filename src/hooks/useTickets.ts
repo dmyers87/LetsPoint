@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
-import fservice from 'services/fservice';
-import { TicketShape } from 'schema';
+import fservice from '../services/fservice';
+import { TicketShape } from '../schema';
 
 export default function useTickets(mid: string): [TicketShape[], boolean] {
   const [isFetching, setIsFetching] = useState(true);
