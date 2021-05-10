@@ -37,6 +37,7 @@
     "axios": "^0.21.1",
     "classnames": "^2.2.6",
     "firebase": "^5.8.4",
+    "json-bigint": "^1.0.0",
     "minimist": "^1.2.3",
     "next": "9.3.2",
     "node-fetch": "^2.6.1",
