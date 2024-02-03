@@ -40,7 +40,7 @@
     "classnames": "^2.2.6",
     "firebase": "^5.8.4",
     "glob-parent": "^5.1.2",
-    "grpc": "^1.24.4",
+    "grpc": "^1.24.11",
     "json-bigint": "^1.0.0",
     "minimist": "^1.2.3",
     "next": "9.3.2",

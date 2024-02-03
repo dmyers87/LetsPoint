@@ -5213,10 +5213,10 @@ grpc@1.20.0:
     node-pre-gyp "^0.12.0"
     protobufjs "^5.0.3"
 
-grpc@^1.24.4:
-  version "1.24.10"
-  resolved "https://registry.yarnpkg.com/grpc/-/grpc-1.24.10.tgz#4cafa5f366e6d64440c3c46e134add47b205a293"
-  integrity sha512-mTR+P5IL3WO3oCgNwxKFE5ksXEJfCYP+dk0aIbjB494f7OnHTmssU5r9vznsSq3+cdLcxAzGFskOj5CaPwi8KA==
+grpc@^1.24.11:
+  version "1.24.11"
+  resolved "https://registry.yarnpkg.com/grpc/-/grpc-1.24.11.tgz#7039da9f6f22ce35168535a6d5dda618398a5966"
+  integrity sha512-8/AQdFCzCeCDWW3SoaMNp6ccbRvTQEH1O1u1uFtt29eWsg5gSZCJ3m6fbkduEIh3smY7WAPP+LgVJ5n3nZRxcA==
   dependencies:
     "@mapbox/node-pre-gyp" "^1.0.4"
     "@types/bytebuffer" "^5.0.40"
